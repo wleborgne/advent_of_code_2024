@@ -31,4 +31,12 @@ for(int i = 0; i < lines.Length; i++)
     total += Math.Abs(left[i] - right[i]);
 }
 
-Console.WriteLine($@"Total: {total}");
+Console.WriteLine($@"Part 1: {total}");
+
+total = 0;
+foreach(int leftVal in left) {
+    var results = Array.FindAll(right, (x) => x == leftVal);
+    total += leftVal * results.Count();
+}
+
+Console.WriteLine($@"Part 2: {total}");
