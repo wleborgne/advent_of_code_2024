@@ -1,10 +1,10 @@
-namespace AdventOfCode;
+namespace Advent;
 
 public class Day1
 {
-  private string rawInput;
-  private int[] left;
-  private int[] right;
+  private readonly string rawInput;
+  private readonly int[] left;
+  private readonly int[] right;
   private int total;
 
   public Day1(string rawInput)
@@ -24,7 +24,7 @@ public class Day1
     }
   }
 
-  public int part1()
+  public int Part1()
   {
     Array.Sort(left);
     Array.Sort(right);
@@ -38,7 +38,7 @@ public class Day1
     return total;
   }
 
-  public int part2()
+  public int Part2()
   {
     total = 0;
     foreach(int leftVal in left)

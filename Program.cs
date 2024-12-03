@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
-namespace AdventOfCode;
+namespace Advent;
 
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 class Program
@@ -27,9 +28,21 @@ class Program
         var sr = new StreamReader(dataFile);
         var contents = sr.ReadToEnd();
 
-        var day = new Day1(contents);
+        string dayClassName = "Advent.Day" + dayNumber;
 
-        Console.WriteLine($@"Part 1: {day.part1()}");
-        Console.WriteLine($@"Part 2: {day.part2()}");
+        // Get the Type dynamically
+        Type? type = Type.GetType(dayClassName);
+
+        if (type != null)
+        {
+            // Create an instance of the class
+            object? day = Activator.CreateInstance(type, [contents]);
+
+            // Convert to a dynamic instance so we can easily call methods on it
+            // Maybe refactor to a common interface later
+            dynamic dynamicDay = day;
+            Console.WriteLine($@"Part 1: {dynamicDay.Part1()}");
+            Console.WriteLine($@"Part 2: {dynamicDay.Part2()}");
+        }
     }
 }
