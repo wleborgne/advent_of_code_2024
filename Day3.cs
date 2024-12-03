@@ -35,6 +35,31 @@ public class Day3
   public int Part2()
   {
     total = 0;
-    return -1;
-  }
+    var regex = @"(?:mul\(\d{1,3},\d{1,3}\)|do\(\)|don't\(\))";
+    bool skip = false;
+  
+    foreach (var line in lines)
+    {
+      var matches = Regex.Matches(line, regex).ToArray();
+      
+      foreach (var match in matches)
+      {
+        if (match.ToString() == @"don't()")
+        {
+          skip = true;
+        }
+        else if (match.ToString() == @"do()")
+        {
+          skip = false;
+          continue;
+        }
+        
+        if (skip) continue;
+
+        var nums = match.ToString().Substring(4, match.Length - 5).Split(',');
+
+        total += Int32.Parse(nums[0]) * Int32.Parse(nums[1]);
+      }
+    }
+    return total;  }
 }
